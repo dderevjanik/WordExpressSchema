@@ -1,3 +1,4 @@
+// @ts-check
 import gql from 'graphql-tag'
 import WordExpressClient from './client'
 
