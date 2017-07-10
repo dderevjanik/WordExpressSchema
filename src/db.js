@@ -3,28 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sequelize_1 = require("sequelize");
 var lodash_1 = require("lodash");
 var php_unserialize_1 = require("php-unserialize");
-/**
- * @typedef {Object} PublicSettings
- * @property {any} amazonS3
- * @property {any} uploads
- */
-/**
- * @typedef {Object} PrivateSetttings
- * @property {string} wp_prefix
- * @property {{name: string, username: string, password: string, host: string, port: number}} database
- */
-/**
- * @typedef {Object} Settings
- * @property {PublicSettings} publicSettings
- * @property {PrivateSetttings} privateSettings
- */
-/**
- * @property {Settings} settings
- */
+;
 var WordExpressDatabase = (function () {
-    /**
-     * @param {Settings} settings
-     */
     function WordExpressDatabase(settings) {
         this.settings = settings;
         this.connection = this.connect();
@@ -115,9 +95,6 @@ var WordExpressDatabase = (function () {
                     offset: skip
                 });
             },
-            /**
-             * @param {number} termId
-             */
             getPostsInCategory: function (termId, _a) {
                 var post_type = _a.post_type, _b = _a.limit, limit = _b === void 0 ? 10 : _b, _c = _a.skip, skip = _c === void 0 ? 0 : _c;
                 return TermRelationships.findAll({
@@ -136,17 +113,11 @@ var WordExpressDatabase = (function () {
                     offset: skip
                 }).then(function (posts) { return lodash_1.default.map(posts, function (post) { return post.wp_post; }); });
             },
-            /**
-             * @param {number} termId
-             */
             getCategoryById: function (termId) {
                 return Terms.findOne({
                     where: { termId: termId }
                 });
             },
-            /**
-             * @param {number} postId
-             */
             getPostById: function (postId) {
                 return Post.findOne({
                     where: {
@@ -174,9 +145,6 @@ var WordExpressDatabase = (function () {
                     return null;
                 });
             },
-            /**
-             * @param {string} name
-             */
             getPostByName: function (name) {
                 return Post.findOne({
                     where: {
@@ -222,9 +190,6 @@ var WordExpressDatabase = (function () {
                     return null;
                 });
             },
-            /**
-             * @param {number} userId
-             */
             getUser: function (userId) {
                 return User.findOne({
                     where: {
@@ -232,9 +197,6 @@ var WordExpressDatabase = (function () {
                     }
                 });
             },
-            /**
-             * @param {number} postId
-             */
             getPostLayout: function (postId) {
                 return Postmeta.findOne({
                     where: {
@@ -243,9 +205,6 @@ var WordExpressDatabase = (function () {
                     }
                 });
             },
-            /**
-             * @param {number} metaId
-             */
             getPostmetaById: function (metaId, keys) {
                 return Postmeta.findOne({
                     where: {
@@ -256,9 +215,6 @@ var WordExpressDatabase = (function () {
                     }
                 });
             },
-            /**
-             * @param {number} postId
-             */
             getPostmeta: function (postId, keys) {
                 return Postmeta.findAll({
                     where: {
@@ -269,9 +225,6 @@ var WordExpressDatabase = (function () {
                     }
                 });
             },
-            /**
-             * @param {string} name
-             */
             getMenu: function (name) {
                 return Terms.findOne({
                     where: {

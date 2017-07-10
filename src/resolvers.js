@@ -39,9 +39,6 @@ function WordExpressResolvers(Connectors, publicSettings) {
             },
         },
         Category: {
-            /**
-             * @param {string} category
-             */
             posts: function (category, args) {
                 return Connectors.getPostsInCategory(category.term_id, args);
             }

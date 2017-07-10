@@ -33,10 +33,7 @@ export function WordExpressResolvers(Connectors, publicSettings) {
       },
     },
     Category: {
-      /**
-       * @param {string} category
-       */
-      posts(category, args) {
+      posts(category: string, args) {
         return Connectors.getPostsInCategory(category.term_id, args)
       }
     },

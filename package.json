@@ -37,6 +37,7 @@
     "@types/sequelize": "^4.0.64",
     "apollo-client": "^1.0.1",
     "chalk": "^2.0.1",
+    "graphql-tag": "^2.4.2",
     "graphql-tools": "^1.1.0",
     "lodash": "^4.13.1",
     "mysql": "^2.11.1",

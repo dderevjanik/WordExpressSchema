@@ -2,33 +2,28 @@ import Sequelize from 'sequelize'
 import _ from 'lodash'
 import PHPUnserialize from 'php-unserialize'
 
-/**
- * @typedef {Object} PublicSettings
- * @property {any} amazonS3
- * @property {any} uploads
- */
+export interface WordExpressDatabaseSettings {
+    publicSettings: {
+        amazonS3: any;
+        uploads: any;
+    };
+    privateSettings: {
+        wp_prefix: string;
+        database: {
+            name: string;
+            username: string;
+            password: string;
+            host: string;
+            port: number;
+        }
+    };
+};
 
-/**
- * @typedef {Object} PrivateSetttings
- * @property {string} wp_prefix
- * @property {{name: string, username: string, password: string, host: string, port: number}} database
- */
-
-
-/**
- * @typedef {Object} Settings
- * @property {PublicSettings} publicSettings
- * @property {PrivateSetttings} privateSettings
- */
-
-/**
- * @property {Settings} settings
- */
 export class WordExpressDatabase {
-    /**
-     * @param {Settings} settings
-     */
-    constructor(settings) {
+
+    public settings: WordExpressDatabaseSettings;
+
+    constructor(settings: WordExpressDatabaseSettings) {
         this.settings = settings
         this.connection = this.connect()
         this.connectors = this.getConnectors()
@@ -134,10 +129,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} termId
-             */
-            getPostsInCategory(termId, { post_type, limit = 10, skip = 0 }) {
+            getPostsInCategory(termId: number, { post_type, limit = 10, skip = 0 }) {
                 return TermRelationships.findAll({
                     attributes: [],
                     include: [{
@@ -155,19 +147,14 @@ export class WordExpressDatabase {
                 }).then(posts => _.map(posts, post => post.wp_post))
             },
 
-            /**
-             * @param {number} termId
-             */
-            getCategoryById(termId) {
+
+            getCategoryById(termId: number) {
                 return Terms.findOne({
                     where: { termId }
                 })
             },
 
-            /**
-             * @param {number} postId
-             */
-            getPostById(postId) {
+            getPostById(postId: number) {
                 return Post.findOne({
                     where: {
                         post_status: 'publish',
@@ -195,10 +182,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {string} name
-             */
-            getPostByName(name) {
+            getPostByName(name: string) {
                 return Post.findOne({
                     where: {
                         post_status: 'publish',
@@ -210,7 +194,7 @@ export class WordExpressDatabase {
             /**
              * @param {number} postId
              */
-            getPostThumbnail(postId) {
+            getPostThumbnail(postId: number) {
                 return Postmeta.findOne({
                     where: {
                         post_id: postId,
@@ -247,10 +231,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} userId
-             */
-            getUser(userId) {
+            getUser(userId: number) {
                 return User.findOne({
                     where: {
                         ID: userId
@@ -258,10 +239,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} postId
-             */
-            getPostLayout(postId) {
+            getPostLayout(postId: number) {
                 return Postmeta.findOne({
                     where: {
                         post_id: postId,
@@ -270,10 +248,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} metaId
-             */
-            getPostmetaById(metaId, keys) {
+            getPostmetaById(metaId: number, keys) {
                 return Postmeta.findOne({
                     where: {
                         meta_id: metaId,
@@ -284,10 +259,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} postId
-             */
-            getPostmeta(postId, keys) {
+            getPostmeta(postId: number, keys) {
                 return Postmeta.findAll({
                     where: {
                         post_id: postId,
@@ -298,10 +270,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {string} name
-             */
-            getMenu(name) {
+            getMenu(name: string) {
                 return Terms.findOne({
                     where: {
                         slug: name

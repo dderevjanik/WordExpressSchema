@@ -1,4 +1,6 @@
-export const WordExpressDefinitions = `
+import gql from 'graphql-tag';
+
+export const WordExpressDefinitions = gql`
   type Menu {
     id: ID!
     name: String
@@ -89,3 +91,4 @@ export const WordExpressDefinitions = `
     query: Query
   }
 `;
+
