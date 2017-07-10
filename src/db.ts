@@ -22,6 +22,9 @@ export interface WordExpressDatabaseSettings {
 export class WordExpressDatabase {
 
     public settings: WordExpressDatabaseSettings;
+    public connection: any;
+    public connectors: any;
+    public models: any;
 
     constructor(settings: WordExpressDatabaseSettings) {
         this.settings = settings

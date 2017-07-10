@@ -1,10 +1,15 @@
 // @ts-check
 
+export interface PublicSettings {
+  amazonS3: any;
+  uploads: any;
+}
+
 /**
  * @param {object} Connectors
  * @param {Settings} publicSettings
  */
-export function WordExpressResolvers(Connectors, publicSettings) {
+export function WordExpressResolvers(Connectors: any, publicSettings: PublicSettings) {
   const Resolvers = {
     Query: {
       settings() {
