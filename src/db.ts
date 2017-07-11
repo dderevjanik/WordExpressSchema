@@ -1,6 +1,13 @@
 import Sequelize from 'sequelize'
 import _ from 'lodash'
 import PHPUnserialize from 'php-unserialize'
+import { IPost } from './interfaces/IPost';
+
+interface PostQuery {
+    post_type: string;
+    limit: number;
+    skip: number;
+}
 
 export interface WordExpressDatabaseSettings {
     publicSettings: {
@@ -121,7 +128,7 @@ export class WordExpressDatabase {
         Postmeta.belongsTo(Post, { foreignKey: 'post_id' })
 
         return {
-            getPosts({ post_type, limit = 10, skip = 0 }) {
+            getPosts({ post_type, limit = 10, skip = 0 }: PostQuery) {
                 return Post.findAll({
                     where: {
                         post_type,
@@ -132,7 +139,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            getPostsInCategory(termId: number, { post_type, limit = 10, skip = 0 }) {
+            getPostsInCategory(termId: number, { post_type, limit = 10, skip = 0 }: PostQuery) {
                 return TermRelationships.findAll({
                     attributes: [],
                     include: [{
@@ -194,9 +201,6 @@ export class WordExpressDatabase {
                 })
             },
 
-            /**
-             * @param {number} postId
-             */
             getPostThumbnail(postId: number) {
                 return Postmeta.findOne({
                     where: {
@@ -251,7 +255,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            getPostmetaById(metaId: number, keys) {
+            getPostmetaById(metaId: number, keys: any) {
                 return Postmeta.findOne({
                     where: {
                         meta_id: metaId,
@@ -262,7 +266,7 @@ export class WordExpressDatabase {
                 })
             },
 
-            getPostmeta(postId: number, keys) {
+            getPostmeta(postId: number, keys: any) {
                 return Postmeta.findAll({
                     where: {
                         post_id: postId,
@@ -302,7 +306,7 @@ export class WordExpressDatabase {
                             post.post_parent = parseInt(parentMenuId[0])
                             return post
                         })
-                        const navItems = []
+                        const navItems: IMenuItem = []
 
                         const parentIds = _.map(_.filter(posts, post => (
                             post.post_parent === 0

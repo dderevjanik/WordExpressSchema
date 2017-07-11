@@ -153,9 +153,6 @@ var WordExpressDatabase = (function () {
                     }
                 });
             },
-            /**
-             * @param {number} postId
-             */
             getPostThumbnail: function (postId) {
                 return Postmeta.findOne({
                     where: {
