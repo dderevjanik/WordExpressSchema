@@ -42,7 +42,7 @@
     "lodash": "^4.13.1",
     "mysql": "^2.11.1",
     "php-unserialize": "0.0.1",
-    "sequelize": "^3.18.0"
+    "sequelize": "^4.17.2"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
